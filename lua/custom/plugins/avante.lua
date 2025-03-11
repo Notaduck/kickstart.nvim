@@ -16,16 +16,16 @@ return {
       timeout = 60000, -- 60 seconds timeout for network operations
       proxy = nil, -- Set to your proxy URL if needed
       allow_insecure = false, -- Set to true only if you need to bypass SSL verification
-      disable_tools = {
-        'rag_search',
-        'python',
-        'create_file',
-        'rename_file',
-        'delete_file',
-        'create_dir',
-        'rename_dir',
-        'delete_dir',
-      }, -- Enable function calling capabilities
+      -- disable_tools = {
+      --   'rag_search',
+      --   'python',
+      --   'create_file',
+      --   'rename_file',
+      --   'delete_file',
+      --   'create_dir',
+      --   'rename_dir',
+      --   'delete_dir',
+      -- }, -- Enable function calling capabilities
       code_editing_commands = true, -- Enable code editing commands
       telemetry = false, -- Disable telemetry for privacy
       split_threshold = 1024, -- Split large messages at this character count

@@ -474,8 +474,10 @@ require('lazy').setup({
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+          map('<leader>cp', vim.lsp.buf.hover, '[C]ode type [p]eak')
+
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
-          ---@param client vim.lsp.Client
+          ---@param clint vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
           ---@param bufnr? integer some lsp support methods only in specific files
           ---@return boolean
@@ -602,7 +604,7 @@ require('lazy').setup({
           },
         },
         -- Add TypeScript LSP configuration
-        ["typescript-language-server"] = {
+        ['typescript-language-server'] = {
           settings = {
             typescript = {
               inlayHints = {
@@ -651,7 +653,7 @@ require('lazy').setup({
         'prettier', -- Prettier for formatting
         'eslint-lsp', -- ESLint LSP
       })
-      require('mason-tool-installer').setup { 
+      require('mason-tool-installer').setup {
         ensure_installed = ensure_installed,
         auto_update = false,
         run_on_start = true,
@@ -856,6 +858,7 @@ require('lazy').setup({
     --   -- You can configure highlights by doing something like:
     --   vim.cmd.hi 'Comment gui=none'
     -- end,
+    --
   },
 
   -- Highlight todo, notes, etc in comments
@@ -974,3 +977,4 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+    vim.cmd.colorscheme 'catppuccin'
