@@ -2,6 +2,8 @@
 local config = require 'custom.plugins.snacks.config'
 local keys = require 'custom.plugins.snacks.keys'
 local autocmds = require 'custom.plugins.snacks.autocmds'
+-- Load our npm scripts module
+local npm_scripts = require 'custom.plugins.snacks.npm_scripts'
 
 -- Set up any autocommands you need on startup
 autocmds.setup()
@@ -38,14 +40,26 @@ return {
           })
           :map '<leader>uc'
         Snacks.toggle.treesitter():map '<leader>uT'
-        Snacks.toggle
-          .option('background', {
-            off = 'light',
-            on = 'dark',
-            name = 'Dark Background',
-          })
-          :map '<leader>ub'
-        Snacks.toggle.inlay_hints():map '<leader>uh'
+        Snacks.toggle.option('background', {
+          off = 'light',
+          on = 'dark',
+          name = 'Dark Background',
+        })
+        Snacks.toggle.indent():map '<leader>ug'
+        Snacks.toggle.dim():map '<leader>uD'
+
+        -- Register npm script commands to make them available via command line
+        vim.api.nvim_create_user_command('NpmRun', function()
+          require('custom.plugins.snacks.npm_scripts').run_npm_script()
+        end, {
+          desc = 'Run npm script from package.json',
+        })
+
+        vim.api.nvim_create_user_command('YarnRun', function()
+          require('custom.plugins.snacks.npm_scripts').run_yarn_script()
+        end, {
+          desc = 'Run yarn script from package.json',
+        })
         Snacks.toggle.indent():map '<leader>ug'
         Snacks.toggle.dim():map '<leader>uD'
       end,

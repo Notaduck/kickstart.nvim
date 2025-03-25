@@ -2,6 +2,21 @@
 local M = {}
 
 M.keys = {
+  -- NPM script runner
+  {
+    '<leader>tn',
+    function()
+      require('custom.plugins.snacks.npm_scripts').run_npm_script()
+    end,
+    desc = 'Run npm script',
+  },
+  {
+    '<leader>ty',
+    function()
+      require('custom.plugins.snacks.npm_scripts').run_yarn_script()
+    end,
+    desc = 'Run yarn script',
+  },
 
   -- Top Pickers & Explorer
   {
@@ -64,9 +79,23 @@ M.keys = {
   {
     '<leader>ff',
     function()
-      Snacks.picker.files()
+      Snacks.picker.files {
+        -- Exclude test/spec files using rg's glob patterns
+        find_command = { 'rg', '--files', '--glob', '!**/*.{test,spec}.*' },
+      }
     end,
-    desc = 'Find Files',
+    desc = 'Find Files (exclude tests)',
+  },
+  {
+    '<leader>ft',
+    function()
+      Snacks.picker.files {
+        -- Only include test/spec files
+        find_command = { 'rg', '--files', '--glob', '**/*.{test,spec}.*' },
+        prompt_title = 'Test Files',
+      }
+    end,
+    desc = 'Find Test Files',
   },
   {
     '<leader>fg',

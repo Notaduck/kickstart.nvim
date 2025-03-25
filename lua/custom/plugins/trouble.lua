@@ -1,40 +1,54 @@
 return {
   'folke/trouble.nvim',
-  cmd = 'Trouble',
-  event = 'VeryLazy',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
-  config = function()
-    require('trouble').setup {
-      modes = {
-        diagnostics = {
-          auto_open = true,
-          auto_close = true,
+  opts = {
+
+    modes = {
+      preview_float = {
+        mode = 'diagnostics',
+        preview = {
+          type = 'float',
+          relative = 'editor',
+          border = 'rounded',
+          title = 'Preview',
+          title_pos = 'center',
+          position = { 0, -2 },
+          size = { width = 0.3, height = 0.3 },
+          zindex = 200,
         },
       },
-      --    warn_no_results = false,
-      -- -- stylua: ignore
-      -- icons = require("utils.icons").trouble,
-    }
-    -- require('utils.remaps').map_virtual {
-    --   { '<leader>t', group = 'trouble', icon = { icon = ' ', hl = 'Constant' } },
-    --   { '<leader>ts', group = 'symbols', icon = { icon = ' ', hl = 'Constant' } },
-    -- }
-  end,
+    },
+  }, -- for default options, refer to the configuration section for custom setup.
+  cmd = 'Trouble',
   keys = {
     {
-      '<leader>tt',
+      '<leader>q',
       '<cmd>Trouble diagnostics toggle<cr>',
-      desc = 'trouble diagnostics',
+      desc = 'Diagnostics (Trouble)',
     },
     {
-      '<leader>tT',
+      '<leader>xX',
       '<cmd>Trouble diagnostics toggle filter.buf=0<cr>',
-      desc = 'buffer diagnostics',
+      desc = 'Buffer Diagnostics (Trouble)',
     },
     {
-      '<leader>ts',
+      '<leader>cs',
       '<cmd>Trouble symbols toggle focus=false<cr>',
-      desc = 'symbols',
+      desc = 'Symbols (Trouble)',
+    },
+    {
+      '<leader>cl',
+      '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+      desc = 'LSP Definitions / references / ... (Trouble)',
+    },
+    {
+      '<leader>xL',
+      '<cmd>Trouble loclist toggle<cr>',
+      desc = 'Location List (Trouble)',
+    },
+    {
+      '<leader>xQ',
+      '<cmd>Trouble qflist toggle<cr>',
+      desc = 'Quickfix List (Trouble)',
     },
   },
 }
