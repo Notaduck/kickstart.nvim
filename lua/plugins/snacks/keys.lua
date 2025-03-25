@@ -6,14 +6,14 @@ M.keys = {
   {
     '<leader>tn',
     function()
-      require('custom.plugins.snacks.npm_scripts').run_npm_script()
+      require('plugins.snacks.npm_scripts').run_npm_script()
     end,
     desc = 'Run npm script',
   },
   {
     '<leader>ty',
     function()
-      require('custom.plugins.snacks.npm_scripts').run_yarn_script()
+      require('plugins.snacks.npm_scripts').run_yarn_script()
     end,
     desc = 'Run yarn script',
   },

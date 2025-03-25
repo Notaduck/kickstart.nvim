@@ -1,9 +1,9 @@
 -- lua/custom/plugins/snacks/init.lua
-local config = require 'custom.plugins.snacks.config'
-local keys = require 'custom.plugins.snacks.keys'
-local autocmds = require 'custom.plugins.snacks.autocmds'
+local config = require 'plugins.snacks.config'
+local keys = require 'plugins.snacks.keys'
+local autocmds = require 'plugins.snacks.autocmds'
 -- Load our npm scripts module
-local npm_scripts = require 'custom.plugins.snacks.npm_scripts'
+local npm_scripts = require 'plugins.snacks.npm_scripts'
 
 -- Set up any autocommands you need on startup
 autocmds.setup()
@@ -50,13 +50,13 @@ return {
 
         -- Register npm script commands to make them available via command line
         vim.api.nvim_create_user_command('NpmRun', function()
-          require('custom.plugins.snacks.npm_scripts').run_npm_script()
+          require('plugins.snacks.npm_scripts').run_npm_script()
         end, {
           desc = 'Run npm script from package.json',
         })
 
         vim.api.nvim_create_user_command('YarnRun', function()
-          require('custom.plugins.snacks.npm_scripts').run_yarn_script()
+          require('plugins.snacks.npm_scripts').run_yarn_script()
         end, {
           desc = 'Run yarn script from package.json',
         })
