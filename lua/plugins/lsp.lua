@@ -9,6 +9,56 @@ return {
       'j-hui/fidget.nvim',
     },
     config = function()
+      -- Setup diagnostic signs with more prominent symbols
+      local signs = {
+        Error = "󰅚 ", -- Error symbol
+        Warn = "󰀪 ",  -- Warning symbol
+        Hint = "󰌶 ",  -- Hint symbol
+        Info = "󰋽 ",  -- Info symbol
+      }
+      for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+      end
+
+      -- Configure diagnostics display
+      vim.diagnostic.config({
+        virtual_text = {
+          prefix = '●', -- Could be '■', '▎', 'x'
+          severity = {
+            min = vim.diagnostic.severity.HINT,
+          },
+          spacing = 4,
+          format = function(diagnostic)
+            local icon = {
+              [vim.diagnostic.severity.ERROR] = "󰅚 ",
+              [vim.diagnostic.severity.WARN] = "󰀪 ",
+              [vim.diagnostic.severity.INFO] = "󰋽 ",
+              [vim.diagnostic.severity.HINT] = "󰌶 ",
+            }
+            return string.format("%s %s", icon[diagnostic.severity] or "", diagnostic.message)
+          end,
+        },
+        signs = true,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
+        float = {
+          border = 'rounded',
+          source = 'always',
+          header = '',
+          prefix = function(diagnostic, i, total)
+            local icon = {
+              [vim.diagnostic.severity.ERROR] = "󰅚 Error",
+              [vim.diagnostic.severity.WARN] = "󰀪 Warning",
+              [vim.diagnostic.severity.INFO] = "󰋽 Info",
+              [vim.diagnostic.severity.HINT] = "󰌶 Hint",
+            }
+            return string.format("%s (%d/%d) ", icon[diagnostic.severity] or "", i, total)
+          end,
+        },
+      })
+
       local on_attach = function(_, bufnr)
         local nmap = function(keys, func, desc)
           vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
@@ -63,12 +113,26 @@ return {
             hostInfo = 'neovim',
             preferences = {
               importModuleSpecifier = 'non-relative',
-              quotePreference = 'double',
+              quotePreference = 'signle',
               includeCompletionsForModuleExports = true,
               includeCompletionsWithSnippetText = true,
               includeAutomaticOptionalChainCompletions = true,
               includeCompletionsWithInsertText = true,
               generateReturnInDocTemplate = true,
+            },
+            InlayHintsOptions = {
+              implementationsCodeLens = { enabled = true },
+              referencesCodeLens = { enabled = true },
+              inlayHints = {
+                includeInlayParameterNameHints = 'literal',
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = false,
+                includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
             },
             -- VSCode-like features
             languageFeatures = {

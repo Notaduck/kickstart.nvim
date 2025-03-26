@@ -8,7 +8,7 @@ return {
 
   -- LSP, Completion & Debugging
   { import = 'plugins.lsp' },
-  { import = 'kickstart.plugins.completion' },  -- Changed to use kickstart path
+  { import = 'plugins.completion' },  -- Use local completion config
   { import = 'plugins.debug' },
   { import = 'plugins.npm_debug' },
   { import = 'plugins.inlay-hints' },
