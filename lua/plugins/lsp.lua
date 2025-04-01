@@ -113,12 +113,14 @@ return {
             hostInfo = 'neovim',
             preferences = {
               importModuleSpecifier = 'non-relative',
-              quotePreference = 'signle',
+              quotePreference = 'single',
               includeCompletionsForModuleExports = true,
               includeCompletionsWithSnippetText = true,
               includeAutomaticOptionalChainCompletions = true,
               includeCompletionsWithInsertText = true,
               generateReturnInDocTemplate = true,
+              includePackageJsonAutoImports = 'on',
+              organizeImportsOnSave = true,
             },
             InlayHintsOptions = {
               implementationsCodeLens = { enabled = true },
@@ -156,16 +158,39 @@ return {
           },
           capabilities = capabilities,
         },
-      
         html = { filetypes = { 'html', 'twig', 'hbs' } },
       }
 
-      for server, config in pairs(servers) do
+      for server, _ in pairs(servers) do
         require('lspconfig')[server].setup(vim.tbl_deep_extend('force', {
           capabilities = capabilities,
           on_attach = on_attach,
-        }, config))
+        }, servers[server] or {}))
       end
+
+      -- Add auto-import organization for TypeScript files
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        pattern = {"*.ts", "*.tsx", "*.js", "*.jsx"},
+        callback = function()
+          -- Use the built-in LSP function to organize imports
+          vim.lsp.buf.code_action({
+            context = { only = { "source.organizeImports" } },
+            apply = true
+          })
+        end
+      })
+
+      -- Format on save for files with LSP attached
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        callback = function()
+          -- Check if there are any active language servers for this buffer
+          local active_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+          if #active_clients > 0 then
+            vim.lsp.buf.format({ timeout_ms = 1000 })
+          end
+        end,
+      })
     end,
   },
 }
+

@@ -11,10 +11,10 @@ return {
       -- model = 'claude-3.5-sonnet', -- Faster, but less capable
       -- model = 'claude-3-haiku',    -- Even faster but less capable
       -- model = 'gpt-4o',          -- OpenAI alternative
-      temperature = 0, -- 0 for deterministic responses
-      max_tokens = 8192, -- High token limit for longer responses
-      timeout = 60000, -- 60 seconds timeout for network operations
-      proxy = nil, -- Set to your proxy URL if needed
+      temperature = 0,        -- 0 for deterministic responses
+      max_tokens = 8192,      -- High token limit for longer responses
+      timeout = 60000,        -- 60 seconds timeout for network operations
+      proxy = nil,            -- Set to your proxy URL if needed
       allow_insecure = false, -- Set to true only if you need to bypass SSL verification
       -- disable_tools = {
       --   'rag_search',
@@ -27,9 +27,11 @@ return {
       --   'delete_dir',
       -- }, -- Enable function calling capabilities
       code_editing_commands = true, -- Enable code editing commands
-      telemetry = false, -- Disable telemetry for privacy
-      split_threshold = 1024, -- Split large messages at this character count
+      telemetry = false,            -- Disable telemetry for privacy
+      split_threshold = 1024,       -- Split large messages at this character count
     },
+
+
     -- add any opts here
     -- for example
     -- provider = 'openai',
@@ -43,11 +45,11 @@ return {
     -- },
     windows = {
       ---@type "right" | "left" | "top" | "bottom"
-      position = 'left', -- the position of the sidebar
-      wrap = true, -- similar to vim.o.wrap
-      width = 30, -- default % based on available width
+      position = 'left',  -- the position of the sidebar
+      wrap = true,        -- similar to vim.o.wrap
+      width = 30,         -- default % based on available width
       sidebar_header = {
-        enabled = true, -- true, false to enable/disable the header
+        enabled = true,   -- true, false to enable/disable the header
         align = 'center', -- left, center, right for title
         rounded = true,
       },
@@ -60,7 +62,7 @@ return {
         start_insert = true, -- Start insert mode when opening the edit window
       },
       ask = {
-        floating = false, -- Open the 'AvanteAsk' prompt in a floating window
+        floating = false,    -- Open the 'AvanteAsk' prompt in a floating window
         start_insert = true, -- Start insert mode when opening the ask window
         border = 'rounded',
         ---@type "ours" | "theirs"
@@ -77,12 +79,12 @@ return {
     'nvim-lua/plenary.nvim',
     'MunifTanjim/nui.nvim',
     --- The below dependencies are optional,
-    'echasnovski/mini.pick', -- for file_selector provider mini.pick
+    'echasnovski/mini.pick',         -- for file_selector provider mini.pick
     'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
-    'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
-    'ibhagwan/fzf-lua', -- for file_selector provider fzf
-    'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-    'zbirenbaum/copilot.lua', -- for providers='copilot'
+    'hrsh7th/nvim-cmp',              -- autocompletion for avante commands and mentions
+    'ibhagwan/fzf-lua',              -- for file_selector provider fzf
+    'nvim-tree/nvim-web-devicons',   -- or echasnovski/mini.icons
+    'zbirenbaum/copilot.lua',        -- for providers='copilot'
     {
       -- support for image pasting
       'HakonHarnes/img-clip.nvim',

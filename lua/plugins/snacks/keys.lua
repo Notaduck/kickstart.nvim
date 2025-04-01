@@ -541,11 +541,9 @@ M.keys = {
     '<leader>sn',
     function()
       local config_path = vim.fn.stdpath 'config'
-      -- Call the file picker with custom options:
       Snacks.picker.files {
         cwd = config_path,
         prompt_title = 'Lua Files',
-        -- Use 'rg' to find only *.lua files recursively:
         find_command = { 'rg', '--files', '--iglob', '*.lua' },
       }
     end,
@@ -558,11 +556,12 @@ M.init = function()
     pattern = 'VeryLazy',
     callback = function()
       -- Setup some globals for debugging (lazy-loaded)
+      -- Use _G.Snacks to avoid undefined global warnings
       _G.dd = function(...)
-        Snacks.debug.inspect(...)
+        _G.Snacks.debug.inspect(...)
       end
       _G.bt = function()
-        Snacks.debug.backtrace()
+        _G.Snacks.debug.backtrace()
       end
       vim.print = _G.dd -- Override print to use snacks for `:=` command
 

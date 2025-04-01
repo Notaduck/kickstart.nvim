@@ -1,4 +1,4 @@
--- lua/custom/plugins/snacks/npm_scripts.lua
+-- lua/plugins/snacks/npm_scripts.lua
 local M = {}
 
 -- Function to find the nearest package.json file
@@ -42,7 +42,6 @@ local function get_npm_scripts()
   -- Return the scripts section
   return package_json.scripts, vim.fn.fnamemodify(package_path, ':h')
 end
-
 -- Main function to show and execute npm scripts
 function M.run_npm_script()
   local scripts, package_dir = get_npm_scripts()
